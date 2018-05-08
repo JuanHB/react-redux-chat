@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import ConversationPanel from './components/ConversationPanel';
+import ConversationPanel from './ConversationPanel/index';
 
 class App extends Component {
   render() {
