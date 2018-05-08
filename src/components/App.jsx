@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import './App.css';
 
-import ConversationPanel from './ConversationPanel/index';
+import ConversationPanel from './ConversationPanel';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <ConversationPanel />
-      </div>
+      <MuiThemeProvider>
+          <ConversationPanel />
+      </MuiThemeProvider>
     );
   }
 }
