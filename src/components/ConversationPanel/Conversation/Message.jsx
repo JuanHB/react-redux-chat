@@ -1,10 +1,15 @@
 import React from 'react';
 
-const Message = (props) =>{
+const Message = (props) => {
 
+  const { message, dateTime, user } = props;
 
   return (
-    <div></div>
+    <li>
+      <p>{user}</p>
+      <p>{message}</p>
+      <p>at: {dateTime.getHours()}:{dateTime.getMinutes()}</p>
+    </li>
   );
 
 };

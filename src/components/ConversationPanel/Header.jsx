@@ -7,6 +7,7 @@ import Settings from 'material-ui/svg-icons/action/settings';
 const Header = () => {
   return (
     <AppBar
+      style={styles.appBar}
       title="React WS Chat v0.1"
       showMenuIconButton={false}
       iconElementRight={
@@ -16,6 +17,13 @@ const Header = () => {
       }
     />
   );
+};
+
+const styles = {
+  appBar: {
+    position: "fixed",
+    top: 0
+  },
 };
 
 export default Header;

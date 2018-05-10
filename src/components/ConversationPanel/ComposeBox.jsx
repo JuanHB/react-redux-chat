@@ -13,7 +13,7 @@ class ComposeBox extends Component {
     super(props);
 
     this.state = {
-      message: ""
+      messageValue: ""
     };
 
     this.submitMessage = this.submitMessage.bind(this);
@@ -21,20 +21,41 @@ class ComposeBox extends Component {
 
   handleMessageChange = (e) => {
     this.setState({
-      message: e.target.value
+      messageValue: e.target.value
     });
   };
 
   submitMessage(event) {
     event.preventDefault();
 
-    const { message } = this.state;
+    const { messageValue } = this.state;
 
-    this.props.sendMessage(message);
+    if(messageValue){
+      const dateTime = new Date();
+      const milliseconds = dateTime.getTime();
+
+      const newMessage = {
+        id: this.generateMessageId(),
+        key: milliseconds,
+        user: "user-001",
+        message: messageValue,
+        dateTime,
+        milliseconds
+      };
+
+      this.props.sendMessage(newMessage);
+
+    }
 
     this.setState({
-      message: ""
+      messageValue: ""
     });
+
+
+  }
+
+  generateMessageId() {
+    return Math.floor((Math.random() * 99999) + 1);
   }
 
   render() {
@@ -42,10 +63,11 @@ class ComposeBox extends Component {
       <Paper style={styles.paper}>
         <form name="messageForm" onSubmit={(e) => this.submitMessage(e)}>
           <TextField
+            autoComplete="off"
             autoFocus={true}
             underlineShow={false}
             hintText="Type your message"
-            value={this.state.message}
+            value={this.state.messageValue}
             onChange={(e) => this.handleMessageChange(e)}
             style={styles.textField}
           />
