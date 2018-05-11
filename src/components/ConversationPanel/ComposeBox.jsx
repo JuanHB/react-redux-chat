@@ -25,9 +25,7 @@ class ComposeBox extends Component {
     });
   };
 
-  submitMessage(event) {
-    event.preventDefault();
-
+  submitMessage() {
     const { messageValue } = this.state;
 
     if(messageValue){
@@ -50,8 +48,13 @@ class ComposeBox extends Component {
     this.setState({
       messageValue: ""
     });
+  }
 
-
+  handleKeyPress(event){
+    if(event.charCode === 13){
+      event.preventDefault();
+      this.submitMessage();
+    }
   }
 
   generateMessageId() {
@@ -60,8 +63,8 @@ class ComposeBox extends Component {
 
   render() {
     return (
-      <Paper style={styles.paper}>
-        <form name="messageForm" onSubmit={(e) => this.submitMessage(e)}>
+      <Paper style={styles.paper} >
+        <form onKeyPress={(e) => this.handleKeyPress(e)} >
           <TextField
             autoComplete="off"
             autoFocus={true}
@@ -70,10 +73,10 @@ class ComposeBox extends Component {
             value={this.state.messageValue}
             onChange={(e) => this.handleMessageChange(e)}
             style={styles.textField}
+            multiLine={true}
+            rows={1}
+            rowsMax={4}
           />
-          <IconButton>
-            <Send/>
-          </IconButton>
         </form>
       </Paper>
     );
@@ -89,8 +92,9 @@ const styles = {
     width: "100%",
   },
   textField: {
-    width: "80%",
     marginLeft: 14,
+    marginRight: 14,
+    width: "93%"
   }
 };
 

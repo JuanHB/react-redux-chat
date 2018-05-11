@@ -1,18 +1,32 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import Message from './Message';
 
 class Conversation extends Component {
 
-  renderConversationMessages(){
-    return this.props.conversation.messages.map( msgObj => (
-      <Message {...msgObj} />
-    ));
+  constructor() {
+    super();
+
+    this.state = { height: 0 };
+
+    this.scrollToBottom = this.scrollToBottom.bind(this);
+    this.updateStyleHeight = this.updateStyleHeight.bind(this)
+
+  }
+
+  updateStyleHeight(){
+    this.setState({ height: window.innerHeight - (styles.marginTop + styles.marginBottom )});
   }
 
   componentDidMount() {
+    this.updateStyleHeight();
     this.scrollToBottom();
+    window.addEventListener('resize', this.updateStyleHeight);
+  }
+
+  componentWillUnmount() {
+    console.log(1)
+    window.removeEventListener('resize', this.updateStyleHeight);
   }
 
   componentDidUpdate() {
@@ -20,15 +34,21 @@ class Conversation extends Component {
   }
 
   scrollToBottom() {
-    const messagesContainer = ReactDOM.findDOMNode(this);
-    console.log(messagesContainer)
-    // messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    // ReactDOM.findDOMNode(this.el).scrollTop = ReactDOM.findDOMNode(this.el).scrollHeight;
+    this.el.scrollTop = this.el.scrollHeight;
+  }
+
+  renderConversationMessages(){
+    return this.props.conversation.messages.map( msgObj => (
+      <Message {...msgObj} />
+    ));
   }
 
   render(){
+
+    const style = {...styles, height: this.state.height};
+
     return (
-      <ul style={styles.ul} >
+      <ul style={style} ref={el => this.el = el } >
         {this.renderConversationMessages()}
       </ul>
     );
@@ -36,10 +56,10 @@ class Conversation extends Component {
 }
 
 const styles = {
-  ul: {
-    marginTop: 64,
-    marginBottom: 64
-  }
+  marginTop: 64,
+  marginBottom: 64,
+  overflow: "auto",
+  height: 100
 };
 
 const mapStateToProps = state => {
