@@ -3,18 +3,13 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 
 import Paper from 'material-ui/Paper';
-import IconButton from 'material-ui/IconButton';
-import Send from 'material-ui/svg-icons/content/send';
 import TextField from 'material-ui/TextField';
 
 class ComposeBox extends Component {
 
   constructor(props){
     super(props);
-
-    this.state = {
-      messageValue: ""
-    };
+    this.state = { messageValue: "" };
 
     this.submitMessage = this.submitMessage.bind(this);
   }
@@ -34,6 +29,7 @@ class ComposeBox extends Component {
 
       const newMessage = {
         id: this.generateMessageId(),
+        type: "text",
         key: milliseconds,
         user: "user-001",
         message: messageValue,
@@ -42,7 +38,6 @@ class ComposeBox extends Component {
       };
 
       this.props.sendMessage(newMessage);
-
     }
 
     this.setState({
@@ -66,16 +61,16 @@ class ComposeBox extends Component {
       <Paper style={styles.paper} >
         <form onKeyPress={(e) => this.handleKeyPress(e)} >
           <TextField
-            autoComplete="off"
-            autoFocus={true}
-            underlineShow={false}
-            hintText="Type your message"
-            value={this.state.messageValue}
-            onChange={(e) => this.handleMessageChange(e)}
-            style={styles.textField}
-            multiLine={true}
             rows={1}
             rowsMax={4}
+            value={this.state.messageValue}
+            style={styles.textField}
+            hintText="Type your message"
+            onChange={(e) => this.handleMessageChange(e)}
+            multiLine={true}
+            autoFocus={true}
+            autoComplete="off"
+            underlineShow={false}
           />
         </form>
       </Paper>

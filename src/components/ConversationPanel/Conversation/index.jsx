@@ -8,14 +8,13 @@ class Conversation extends Component {
     super();
 
     this.state = { height: 0 };
-
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.updateStyleHeight = this.updateStyleHeight.bind(this)
 
   }
 
   updateStyleHeight(){
-    this.setState({ height: window.innerHeight - (styles.marginTop + styles.marginBottom )});
+    this.setState({ height: window.innerHeight - 100});
   }
 
   componentDidMount() {
@@ -25,7 +24,6 @@ class Conversation extends Component {
   }
 
   componentWillUnmount() {
-    console.log(1)
     window.removeEventListener('resize', this.updateStyleHeight);
   }
 
@@ -44,24 +42,13 @@ class Conversation extends Component {
   }
 
   render(){
-
-    const style = {...styles, height: this.state.height};
-
     return (
-      <ul style={style} ref={el => this.el = el } >
+      <div style={{ height: this.state.height }} ref={el => this.el = el } className="wrapper inner" >
         {this.renderConversationMessages()}
-      </ul>
+      </div>
     );
   }
 }
-
-const styles = {
-  marginTop: 64,
-  marginBottom: 64,
-  overflow: "auto",
-  height: 100
-};
-
 const mapStateToProps = state => {
   return {
     conversation: state.conversation
