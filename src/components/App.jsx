@@ -3,12 +3,20 @@ import React, { Component } from 'react';
 import ConversationPanel from './ConversationPanel';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from '../reducers';
+
+import './App.scss';
+
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider>
+      <Provider store={createStore(reducers)}>
+        <MuiThemeProvider>
           <ConversationPanel />
-      </MuiThemeProvider>
+        </MuiThemeProvider>
+      </Provider>
     );
   }
 }
