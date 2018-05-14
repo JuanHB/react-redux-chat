@@ -2,7 +2,7 @@
 
 const configReducer = (
   state = {
-    userName: "guest-001"
+    user: "guest-001"
   },
   action = null
 ) => {

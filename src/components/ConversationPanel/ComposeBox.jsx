@@ -55,10 +55,6 @@ class ComposeBox extends Component {
     }
   }
 
-  generateMessageId() {
-    return Math.floor((Math.random() * 99999) + 1);
-  }
-
   render() {
     return (
       <Paper style={styles.paper} >

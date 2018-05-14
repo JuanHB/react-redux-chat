@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Message from './Message';
+import * as actions from '../../../actions';
 
-import openSocket from "socket.io-client";
+import Socket from '../../../services/Socket';
 
 class Conversation extends Component {
 
@@ -20,14 +21,12 @@ class Conversation extends Component {
   }
 
   componentDidMount() {
+
     this.updateStyleHeight();
     this.scrollToBottom();
 
-    /*subscribeToMessages((err, message) => {
-      console.log(err, message)
-    });*/
-
-    // const socket = openSocket("http://185.13.90.140:8081/");
+    const socket = new Socket();
+    socket.listenMessagesFromSocket((m) => this.props.sendMessage(m));
 
     window.addEventListener('resize', this.updateStyleHeight);
   }
@@ -46,7 +45,7 @@ class Conversation extends Component {
 
   renderConversationMessages(){
     return this.props.conversation.messages.map( msgObj => (
-      <Message {...msgObj} />
+      <Message {...msgObj} configUser={this.props.config.user} />
     ));
   }
 
@@ -60,8 +59,9 @@ class Conversation extends Component {
 }
 const mapStateToProps = state => {
   return {
+    config: state.config,
     conversation: state.conversation
   }
 };
 
-export default connect(mapStateToProps, null)(Conversation);
+export default connect(mapStateToProps, actions)(Conversation);
