@@ -21,9 +21,12 @@ class ComposeBox extends Component {
   };
 
   submitMessage() {
+
     const { messageValue } = this.state;
 
     if(messageValue){
+
+      const { userName } = this.props.config;
       const dateTime = new Date();
       const milliseconds = dateTime.getTime();
 
@@ -31,7 +34,7 @@ class ComposeBox extends Component {
         id: this.generateMessageId(),
         type: "text",
         key: milliseconds,
-        user: "user-001",
+        user: userName,
         message: messageValue,
         dateTime,
         milliseconds
@@ -78,6 +81,12 @@ class ComposeBox extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    config: state.config
+  };
+};
+
 const styles = {
   paper: {
     position: "fixed",
@@ -93,4 +102,4 @@ const styles = {
   }
 };
 
-export default connect(null, actions)(ComposeBox);
+export default connect(mapStateToProps, actions)(ComposeBox);

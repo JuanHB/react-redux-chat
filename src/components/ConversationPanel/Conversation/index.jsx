@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Message from './Message';
 
+import openSocket from "socket.io-client";
+
 class Conversation extends Component {
 
   constructor() {
@@ -20,6 +22,13 @@ class Conversation extends Component {
   componentDidMount() {
     this.updateStyleHeight();
     this.scrollToBottom();
+
+    /*subscribeToMessages((err, message) => {
+      console.log(err, message)
+    });*/
+
+    // const socket = openSocket("http://185.13.90.140:8081/");
+
     window.addEventListener('resize', this.updateStyleHeight);
   }
 
@@ -32,7 +41,7 @@ class Conversation extends Component {
   }
 
   scrollToBottom() {
-    this.el.scrollTop = this.el.scrollHeight;
+    this.convoContainer.scrollTop = this.convoContainer.scrollHeight;
   }
 
   renderConversationMessages(){
@@ -43,7 +52,7 @@ class Conversation extends Component {
 
   render(){
     return (
-      <div style={{ height: this.state.height }} ref={el => this.el = el } className="wrapper inner" >
+      <div style={{ height: this.state.height }} ref={ elem => this.convoContainer = elem } className="wrapper inner" >
         {this.renderConversationMessages()}
       </div>
     );
