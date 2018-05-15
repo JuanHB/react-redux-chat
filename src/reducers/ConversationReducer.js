@@ -6,11 +6,14 @@ const conversationReducer = (
   },
   action = null
 ) => {
-  switch (action.type) {
+
+  const { type, message } = action;
+
+  switch (type) {
 
     case types.SEND_NEW_MESSAGE:
     case types.ADD_RECEIVED_MESSAGE:
-      const newMessage = messageWithAdditionalInfo(action.payload);
+      const newMessage = messageWithAdditionalInfo(message);
       return { ...state, messages: [...state.messages, newMessage()] };
 
     default:
@@ -30,7 +33,6 @@ const messageWithAdditionalInfo = (message) => {
         key: milliseconds,
         id, milliseconds, dateTime
       };
-
     return { ...message, ...addInfo };
   }
 };

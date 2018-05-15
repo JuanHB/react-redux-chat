@@ -13,6 +13,11 @@ const configReducer = (
       selected: "24",
       defaultOption: "24"
     },
+    date: {
+      options: [ true, false ],
+      selected: true,
+      defaultOption: true
+    },
     messageSounds: {
       options: [ true, false ],
       selected: true,
