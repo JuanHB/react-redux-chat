@@ -7,31 +7,31 @@ import Socket from '../../../services/Socket';
 
 class Conversation extends Component {
 
+  socket = new Socket();
+
   constructor() {
     super();
-
     this.state = { height: 0 };
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.updateStyleHeight = this.updateStyleHeight.bind(this)
 
   }
 
-  updateStyleHeight(){
-    this.setState({ height: window.innerHeight - 100});
-  }
-
   componentDidMount() {
+
+    const { socket, props } = this;
 
     this.updateStyleHeight();
     this.scrollToBottom();
 
-    const socket = new Socket();
-    socket.listenMessagesFromSocket((m) => this.props.sendMessage(m));
-
+    // starts the Socket connection singleton
+    // and calls the messages listener with a callback
+    socket.listenMessagesFromSocket(props.addReceivedMessage);
     window.addEventListener('resize', this.updateStyleHeight);
   }
 
   componentWillUnmount() {
+    this.socket.removeAllMessageListeners();
     window.removeEventListener('resize', this.updateStyleHeight);
   }
 
@@ -39,19 +39,27 @@ class Conversation extends Component {
     this.scrollToBottom();
   }
 
+  updateStyleHeight(){
+    this.setState({ height: window.innerHeight - 100});
+  }
+
   scrollToBottom() {
     this.convoContainer.scrollTop = this.convoContainer.scrollHeight;
   }
 
   renderConversationMessages(){
-    return this.props.conversation.messages.map( msgObj => (
-      <Message {...msgObj} configUser={this.props.config.user} />
+    const { props } = this;
+    return props.conversation.messages.map( msgObj => (
+      <Message {...msgObj} configUser={props.config.user} />
     ));
   }
 
   render(){
     return (
-      <div style={{ height: this.state.height }} ref={ elem => this.convoContainer = elem } className="wrapper inner" >
+      <div
+        className="wrapper inner"
+        style={{ height: this.state.height }}
+        ref={elem => this.convoContainer = elem}>
         {this.renderConversationMessages()}
       </div>
     );

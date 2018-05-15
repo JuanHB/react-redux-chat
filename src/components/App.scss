@@ -4,7 +4,7 @@ $dingy: #495B6A;
 $white: #ffffff;
 $purple: #673AB7;
 $yellow: #FFEB3B;
-$green: #39afff;
+$green: #cdd9e1;
 $red: #F44336;
 $orange: #FF5722;
 $black: #333333;
@@ -54,7 +54,7 @@ $trans: 0.3s ease;
   }
 
   .text-wrapper {
-    padding: ($navHeight - ($navHeight/1.6)) / 2;
+    padding: ($navHeight - ($navHeight/1.5)) / 2;
     min-height: $navHeight/2.2;
     width: 60%;
     max-width: 90%;
@@ -79,6 +79,13 @@ $trans: 0.3s ease;
       margin-top: 4px;
       font-size: 11px;
       float: right;
+    }
+
+    .userName {
+      color: $dingy;
+      font-size: 11px;
+      margin-bottom: 6px;
+      //float: left;
     }
 
   }

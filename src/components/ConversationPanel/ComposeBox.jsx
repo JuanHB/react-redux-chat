@@ -4,47 +4,37 @@ import * as actions from '../../actions';
 
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import Socket from "../../services/Socket";
 
 class ComposeBox extends Component {
 
   constructor(props){
     super(props);
-    this.state = { messageValue: "" };
-
+    this.state = { message: "" };
     this.submitMessage = this.submitMessage.bind(this);
   }
 
   handleMessageChange = (e) => {
     this.setState({
-      messageValue: e.target.value
+      message: e.target.value
     });
   };
 
   submitMessage() {
 
-    const { messageValue } = this.state;
+    const { props } = this;
+    const { user } = props.config;
+    const { message } = this.state;
 
-    if(messageValue){
-
-      const { userName } = this.props.config;
-      const dateTime = new Date();
-      const milliseconds = dateTime.getTime();
-
-      const newMessage = {
-        id: this.generateMessageId(),
-        type: "text",
-        key: milliseconds,
-        user: userName,
-        message: messageValue,
-        dateTime,
-        milliseconds
-      };
-
-      this.props.sendMessage(newMessage);
+    if(message){
+      const messageToSend = {user , message};
+      // access the socket singleton instance only when needed
+      const socket = new Socket();
+      socket.sendMessageToSocket(messageToSend, props.sendMessage)
     }
 
     this.setState({
-      messageValue: ""
+      message: ""
     });
   }
 
@@ -62,7 +52,7 @@ class ComposeBox extends Component {
           <TextField
             rows={1}
             rowsMax={4}
-            value={this.state.messageValue}
+            value={this.state.message}
             style={styles.textField}
             hintText="Type your message"
             onChange={(e) => this.handleMessageChange(e)}

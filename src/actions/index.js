@@ -6,3 +6,10 @@ export const sendMessage = (message) => {
     payload: message
   };
 };
+
+export const addReceivedMessage = (message) => {
+  return {
+    type: types.ADD_RECEIVED_MESSAGE,
+    payload: message
+  }
+};

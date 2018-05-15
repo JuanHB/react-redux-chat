@@ -19,14 +19,24 @@ class Socket {
     this.instance = this;
     this.url = process.env.REACT_APP_SOCKET_IO_URL;
     this.io = io.connect(this.url);
+    this.ignore = ["echoBot2000"];
   }
 
   listenMessagesFromSocket(callback) {
-    this.io.on("message", message => callback(message));
+    const { io, ignore } = this;
+    io.on("message", message => {
+      // only calls the callback fn when the user is not on the ignored list
+      return ignore.indexOf(message.user) === -1 ? callback(message) : null
+    });
   };
 
-  sendMessageToSocket(messageObj) {
+  removeAllMessageListeners(){
+    this.io.removeAllListeners("message");
+  }
+
+  sendMessageToSocket(messageObj, callback) {
     this.io.emit("message", messageObj);
+    return callback(messageObj);
   }
 
 }
