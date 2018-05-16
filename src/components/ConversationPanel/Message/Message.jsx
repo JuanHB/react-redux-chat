@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import './Message.scss';
 
 class Message extends PureComponent {
 
@@ -29,7 +30,6 @@ class Message extends PureComponent {
       </div>
     );
   }
-
 }
 
 Message.propTypes = {

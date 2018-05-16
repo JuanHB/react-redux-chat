@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import Settings from 'material-ui/svg-icons/action/settings';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-
 import {Link, withRouter} from 'react-router-dom';
+import './Header.scss';
 
 class Header extends Component {
 
@@ -34,7 +33,7 @@ class Header extends Component {
 
     return (
       <AppBar
-        style={styles.appBar}
+        className="header"
         title={this.renderTitle()}
         showMenuIconButton={location.pathname !== '/'}
         iconElementLeft={
@@ -48,12 +47,5 @@ class Header extends Component {
   }
 
 }
-
-const styles = {
-  appBar: {
-    position: "fixed",
-    top: 0
-  },
-};
 
 export default withRouter(Header);

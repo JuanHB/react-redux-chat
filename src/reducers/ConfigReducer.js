@@ -8,7 +8,7 @@ const configReducer = (
       selected: "light",
       defaultOption: "light"
     },
-    clock: {
+    timeFormat: {
       options: [ "12", "24" ],
       selected: "24",
       defaultOption: "24"

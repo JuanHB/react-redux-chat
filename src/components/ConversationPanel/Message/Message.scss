@@ -1,45 +1,10 @@
-$black: #000000;
-$blue: #2196F3;
-$dingy: #495B6A;
-$white: #ffffff;
-$purple: #673AB7;
-$yellow: #FFEB3B;
-$green: #cdd9e1;
-$red: #F44336;
-$orange: #FF5722;
-$black: #333333;
-
 $navHeight: 64px;
 
-$trans: 0.3s ease;
-
-.wrapper {
-
-  width: 100%;
-  overflow: auto;
-  background: darken($white, 5%);
-  position: fixed;
-  top: $navHeight;
-
-  box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.5);
-
-  .inner {
-
-    margin-bottom: $navHeight;
-    margin-top: $navHeight;
-
-    -ms-overflow-style: none;
-    overflow: -moz-scrollbars-none;
-    //gotta hide windows scrollbars
-
-    .content {
-      padding: ($navHeight - ($navHeight/1.5)) / 2;
-      position: relative;
-      margin-bottom: $navHeight/2;
-    }
-  }
-  //transition: $trans;
-}
+$black: #000000;
+$dingy: #495B6A;
+$lightGray: #cdd9e1;
+$white: #ffffff;
+$orange: #FF5722;
 
 .message-wrapper {
   position: relative;
@@ -60,7 +25,7 @@ $trans: 0.3s ease;
     max-width: 90%;
     word-wrap: break-word;
     margin: 0 ($navHeight - ($navHeight/1.5)) / 2;
-    box-shadow: 0px 1px 0px 0px rgba(50, 50, 50, 0.3);
+    box-shadow: 0 1px 0 0 rgba(50, 50, 50, 0.3);
     border-radius: 2px;
     font-weight: 300;
     position: relative;
@@ -96,7 +61,7 @@ $trans: 0.3s ease;
     padding: (($navHeight - ($navHeight/1.5)) / 2) 0;
 
     .circle-wrapper, .text-wrapper {
-      background: $green;
+      background: $lightGray;
       float: left;
       color: $black;
     }
@@ -104,7 +69,7 @@ $trans: 0.3s ease;
     .text-wrapper {
       &:before {
         border-width: 0 10px 10px 0;
-        border-color: transparent $green transparent transparent;
+        border-color: transparent $lightGray transparent transparent;
         position: absolute;
         top: 0;
         left: -9px;

@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from '../reducers';
-
 import Header from './Header/Header';
 import ConversationPanel from './ConversationPanel/ConversationPanel';
 import ConfigPanel from './ConfigPanel/ConfigPanel';
-
-import './App.scss';
 
 class App extends Component {
   render() {

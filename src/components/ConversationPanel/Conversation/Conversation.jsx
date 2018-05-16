@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Message from './Message';
+import Message from '../Message/Message';
 import * as actions from '../../../actions/Actions';
 import { Socket } from '../../../services';
+import PanelWrapper from '../../PanelWrapper/PanelWrapper';
 
 class Conversation extends Component {
 
@@ -10,40 +11,25 @@ class Conversation extends Component {
 
   constructor() {
     super();
-    this.state = { height: 0 };
-    this.scrollToBottom = this.scrollToBottom.bind(this);
-    this.updateStyleHeight = this.updateStyleHeight.bind(this)
-
+    this.panelWrapper = React.createRef();
   }
 
   componentDidMount() {
 
     const { socket, props } = this;
-
-    this.updateStyleHeight();
-    this.scrollToBottom();
+    this.panelWrapper.current.scrollToBottom();
 
     // starts the Socket connection singleton
     // and calls the messages listener with a callback
     socket.listenMessagesFromSocket(props.addReceivedMessage);
-    window.addEventListener('resize', this.updateStyleHeight);
   }
 
   componentWillUnmount() {
     this.socket.removeAllMessageListeners();
-    window.removeEventListener('resize', this.updateStyleHeight);
   }
 
   componentDidUpdate() {
-    this.scrollToBottom();
-  }
-
-  updateStyleHeight(){
-    this.setState({ height: window.innerHeight - 100});
-  }
-
-  scrollToBottom() {
-    this.convoContainer.scrollTop = this.convoContainer.scrollHeight;
+    this.panelWrapper.current.scrollToBottom();
   }
 
   renderConversationMessages(){
@@ -55,15 +41,15 @@ class Conversation extends Component {
 
   render(){
     return (
-      <div
-        className="wrapper inner"
-        style={{ height: this.state.height }}
-        ref={elem => this.convoContainer = elem}>
-        {this.renderConversationMessages()}
-      </div>
+      <PanelWrapper
+        subtractFromHeight={100}
+        ref={this.panelWrapper}>
+        { this.renderConversationMessages() }
+      </PanelWrapper>
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     config: state.config,

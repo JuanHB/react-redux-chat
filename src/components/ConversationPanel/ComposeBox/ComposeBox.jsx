@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/Actions';
-
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import { Socket } from "../../../services/index";
+import './ComposeBox.scss';
 
 class ComposeBox extends Component {
 
@@ -49,13 +49,13 @@ class ComposeBox extends Component {
 
   render() {
     return (
-      <Paper style={styles.paper} >
+      <Paper className="paper" >
         <form onKeyPress={(e) => this.handleKeyPress(e)} >
           <TextField
             rows={1}
             rowsMax={4}
             value={this.state.message}
-            style={styles.textField}
+            className="textField"
             hintText="Type your message"
             onChange={(e) => this.handleMessageChange(e)}
             multiLine={true}
@@ -73,21 +73,6 @@ const mapStateToProps = state => {
   return {
     config: state.config
   };
-};
-
-const styles = {
-  paper: {
-    position: "fixed",
-    zIndex: 100,
-    bottom: 0,
-    left: 0,
-    width: "100%",
-  },
-  textField: {
-    marginLeft: 14,
-    marginRight: 14,
-    width: "93%"
-  }
 };
 
 export default connect(mapStateToProps, actions)(ComposeBox);
