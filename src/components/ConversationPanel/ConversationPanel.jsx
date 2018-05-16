@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import ComposeBox from './ComposeBox';
-import Conversation from './Conversation';
+import ComposeBox from './ComposeBox/ComposeBox';
+import Conversation from './Conversation/Conversation';
 
 class ConversationPanel extends Component {
 

@@ -9,9 +9,9 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from '../reducers';
 
-import Header from './Header';
-import ConversationPanel from './ConversationPanel';
-import Config from './Config';
+import Header from './Header/Header';
+import ConversationPanel from './ConversationPanel/ConversationPanel';
+import ConfigPanel from './ConfigPanel/ConfigPanel';
 
 import './App.scss';
 
@@ -24,7 +24,7 @@ class App extends Component {
             <div>
               <Header />
               <Route exact path='/' component={ConversationPanel} />
-              <Route path='/config' component={Config} />
+              <Route path='/config' component={ConfigPanel} />
             </div>
           </MuiThemeProvider>
         </Provider>

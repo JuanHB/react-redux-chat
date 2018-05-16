@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../../actions/Actions';
 
 import Toggle from 'material-ui/Toggle';
 import {RadioButtonGroup, RadioButton} from 'material-ui/RadioButton'
 import SubHeader from 'material-ui/Subheader';
 import { withRouter } from 'react-router-dom'
 
-class Config extends Component {
+class ConfigPanel extends Component {
   render() {
     return (
       <div className="wrapper">
@@ -63,4 +63,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default withRouter(connect(mapStateToProps, actions)(Config));
+export default withRouter(connect(mapStateToProps, actions)(ConfigPanel));

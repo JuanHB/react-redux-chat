@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 class Message extends PureComponent {
 
@@ -15,7 +16,7 @@ class Message extends PureComponent {
   render() {
 
     const { message, dateTime, user, configUser } = this.props;
-    const messageClass = "message-wrapper " + ((user === configUser) ? "me" : "them");
+    const messageClass = ["message-wrapper ",((user === configUser) ? "me" : "them")].join("");
 
     return (
       <div className={ messageClass }>
@@ -31,5 +32,11 @@ class Message extends PureComponent {
 
 }
 
-export default Message;
+Message.propTypes = {
+  user: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  dateTime: PropTypes.object.isRequired,
+  configUser: PropTypes.string.isRequired
+};
 
+export default Message;

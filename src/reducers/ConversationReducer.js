@@ -1,4 +1,4 @@
-import * as types from '../actions/actionTypes';
+import * as types from '../actions/Types';
 
 const conversationReducer = (
   state = {
@@ -29,9 +29,11 @@ const messageWithAdditionalInfo = (message) => {
       dateTime = new Date(),
       milliseconds = dateTime.getTime(),
       addInfo = {
-        type: 'text',
+        id,
+        dateTime,
+        milliseconds,
         key: milliseconds,
-        id, milliseconds, dateTime
+        type: 'text',
       };
     return { ...message, ...addInfo };
   }

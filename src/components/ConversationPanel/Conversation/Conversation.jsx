@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Message from './Message';
-import * as actions from '../../../actions';
-
+import * as actions from '../../../actions/Actions';
 import { Socket } from '../../../services';
 
 class Conversation extends Component {
