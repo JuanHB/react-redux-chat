@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Message from './Message';
 import * as actions from '../../../actions';
 
-import Socket from '../../../services/Socket';
+import { Socket } from '../../../services';
 
 class Conversation extends Component {
 

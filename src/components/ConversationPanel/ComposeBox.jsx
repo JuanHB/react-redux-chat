@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import Socket from "../../services/Socket";
+import { Socket } from "../../services";
 
 class ComposeBox extends Component {
 
@@ -22,20 +22,22 @@ class ComposeBox extends Component {
 
   submitMessage() {
 
-    const { props } = this;
-    const { user } = props.config;
-    const { message } = this.state;
+    const
+      { props } = this,
+      { user } = props.config,
+      { message } = this.state;
 
     if(message){
       const messageToSend = {user , message};
       // access the socket singleton instance only when needed
       const socket = new Socket();
-      socket.sendMessageToSocket(messageToSend, props.sendMessage)
+      socket.sendMessageToSocket(messageToSend, (messageSent) => {
+        // stores the message on redux state
+        props.sendMessage(messageSent);
+        // cleans the user message on the local state after it was sent
+        this.setState({ message: "" });
+      })
     }
-
-    this.setState({
-      message: ""
-    });
   }
 
   handleKeyPress(event){

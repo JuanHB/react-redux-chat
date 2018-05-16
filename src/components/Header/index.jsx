@@ -19,6 +19,15 @@ class Header extends Component {
     }
   }
 
+  renderMenuIcon() {
+    const { location } = this.props;
+    return location.pathname === '/' ? (
+      <Link to="/config">
+        <IconButton> <Settings/> </IconButton>
+      </Link>
+    ) : null;
+  }
+
   render() {
 
     const { location } = this.props;
@@ -33,11 +42,7 @@ class Header extends Component {
             <IconButton> <ArrowBack/> </IconButton>
           </Link>
         }
-        iconElementRight={
-          <Link to="/config">
-            <IconButton> <Settings/> </IconButton>
-          </Link>
-        }
+        iconElementRight={ this.renderMenuIcon() }
       />
     );
   }

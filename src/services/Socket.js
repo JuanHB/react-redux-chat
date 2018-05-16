@@ -17,7 +17,7 @@ class Socket {
     }
 
     this.instance = this;
-    this.url = process.env.REACT_APP_SOCKET_IO_URL;
+    this.url = process.env.REACT_APP_SOCKET_IO_URL || "http://185.13.90.140:8081/";
     this.io = io.connect(this.url);
     this.ignore = ["echoBot2000"];
   }
