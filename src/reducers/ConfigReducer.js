@@ -2,13 +2,18 @@
 
 const configReducer = (
   state = {
-    user: "guest-001",
+    user:  'guest-001',
     theme: {
-      options: [ "light", "dark" ],
-      selected: "light",
-      defaultOption: "light"
+      label: 'Color Theme',
+      options: [
+        { label: 'Light', value: 'light'},
+        { label: 'Dark', value: 'dark'},
+      ],
+      selected: 'light',
+      defaultOption: 'light'
     },
     timeFormat: {
+      label: "Time Format",
       options: [ "12", "24" ],
       selected: "24",
       defaultOption: "24"

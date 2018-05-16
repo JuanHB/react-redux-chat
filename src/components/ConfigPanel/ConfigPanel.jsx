@@ -1,27 +1,36 @@
 import React, { Component } from 'react';
+import Toggle from 'material-ui/Toggle';
+import Divider from 'material-ui/Divider';
+import SubHeader from 'material-ui/Subheader';
+import { List, ListItem } from 'material-ui/List';
+import { RadioButtonGroup, RadioButton } from 'material-ui/RadioButton'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import * as actions from '../../actions/Actions';
-import Toggle from 'material-ui/Toggle';
-import {RadioButtonGroup, RadioButton} from 'material-ui/RadioButton'
-import Divider from 'material-ui/Divider';
-import {List, ListItem} from 'material-ui/List';
-import SubHeader from 'material-ui/Subheader';
 import PanelWrapper from '../PanelWrapper/PanelWrapper';
+import RadioOptions from './RadioOptions/RadioOptions';
 import './ConfigPanel.scss';
 
 class ConfigPanel extends Component {
 
   constructor(){
+
     super();
-    this.state = {}
+
+    this.handleRadioOptionChange = this.handleRadioOptionChange.bind(this);
+
   }
 
   renderThemeColorConfigBlock() {
+
+    const
+      { config } = this.props,
+      { selected } = config.theme;
+
     return (
       <div>
         <SubHeader>Theme Color</SubHeader>
-        <RadioButtonGroup name="selectedTheme" className="radio-group">
+        <RadioButtonGroup name="selectedTheme" defaultSelected={ selected }  className="radio-group">
           <RadioButton label="Light" value="light" className="radio" />
           <RadioButton label="Dark" value="dark" className="radio" />
         </RadioButtonGroup>
@@ -30,10 +39,15 @@ class ConfigPanel extends Component {
   }
 
   renderTimeFormatConfigBlock(){
+
+    const
+      {config } = this.props,
+      { selected } = config.timeFormat
+
     return (
       <div>
         <SubHeader> Time format </SubHeader>
-        <RadioButtonGroup name="selectedTimeFormat" className="radio-group" >
+        <RadioButtonGroup name="selectedTimeFormat" defaultSelected={ selected } className="radio-group" >
           <RadioButton label="24 hours" value="24" className="radio" />
           <RadioButton label="12 hours" value="12" className="radio" />
         </RadioButtonGroup>
@@ -54,10 +68,17 @@ class ConfigPanel extends Component {
     );
   }
 
+  handleRadioOptionChange(e) {
+    console.log(e)
+  }
+
   render() {
+
+    const { config } = this.props;
+
     return (
       <PanelWrapper>
-        { this.renderThemeColorConfigBlock() }
+        { <RadioOptions {...config.theme } onChange={this.handleRadioOptionChange} /> }
         { this.renderTimeFormatConfigBlock() }
         { this.renderToggleOptionsBlock() }
       </PanelWrapper>

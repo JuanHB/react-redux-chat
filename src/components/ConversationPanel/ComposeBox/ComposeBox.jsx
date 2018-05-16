@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../../actions/Actions';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import { Socket } from "../../../services/index";
+import * as actions from '../../../actions/Actions';
 import './ComposeBox.scss';
 
 class ComposeBox extends Component {
