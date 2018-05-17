@@ -33,9 +33,9 @@ class Conversation extends Component {
   }
 
   renderConversationMessages(){
-    const { props } = this;
-    return props.conversation.messages.map( msgObj => (
-      <Message {...msgObj} configUser={props.config.user} />
+    const { conversation, config } = this.props;
+    return conversation.messages.map( msgObj => (
+      <Message {...msgObj} configUser={config.user} timeFormat={config.timeFormat.selected} />
     ));
   }
 

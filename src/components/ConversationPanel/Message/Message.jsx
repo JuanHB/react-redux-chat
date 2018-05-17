@@ -4,10 +4,15 @@ import './Message.scss';
 
 class Message extends PureComponent {
 
-  getMessageTime(dateTime) {
+  getMessageTime(dateTime, timeFormat = "24") {
+
     const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const timeString = timeFormat === "12"
+      ? dateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+      : [dateTime.getHours(), ":", dateTime.getMinutes()].join("");
+
     const dateTimeToReturn = [
-      dateTime.getHours(), ":", dateTime.getMinutes(), " - ",
+      timeString, " - ",
       dateTime.getDate(), "/", (dateTime.getMonth() + 1), " - ",
       weekDays[dateTime.getDay()]
     ];
@@ -16,7 +21,7 @@ class Message extends PureComponent {
 
   render() {
 
-    const { message, dateTime, user, configUser } = this.props;
+    const { message, dateTime, user, configUser, timeFormat } = this.props;
     const messageClass = ["message-wrapper ",((user === configUser) ? "me" : "them")].join("");
 
     return (
@@ -25,7 +30,7 @@ class Message extends PureComponent {
         <div className="text-wrapper">
           <div className="userName">{ user }</div>
           <div>{ message }</div>
-          <div className="time">{ this.getMessageTime(dateTime) }</div>
+          <div className="time">{ this.getMessageTime(dateTime, timeFormat) }</div>
         </div>
       </div>
     );
@@ -36,7 +41,8 @@ Message.propTypes = {
   user: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   dateTime: PropTypes.object.isRequired,
-  configUser: PropTypes.string.isRequired
+  configUser: PropTypes.string.isRequired,
+  timeFormat: PropTypes.string
 };
 
 export default Message;

@@ -13,3 +13,16 @@ export const addReceivedMessage = (message) => {
     message
   }
 };
+
+export const updateConfigOption = (value, option) => {
+  return {
+    type: types.UPDATE_CONFIG_OPTION,
+    value, option
+  }
+};
+
+export const resetAllConfigOptions = () => {
+  return {
+    type: types.RESET_ALL_CONFIG_OPTIONS
+  }
+};

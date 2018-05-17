@@ -1,4 +1,4 @@
-// import * as types from '../actions/actionTypes';
+import * as types from '../actions/Types';
 
 const configReducer = (
   state = {
@@ -13,23 +13,23 @@ const configReducer = (
       defaultOption: 'light'
     },
     timeFormat: {
-      label: "Time Format",
-      options: [ "12", "24" ],
-      selected: "24",
-      defaultOption: "24"
+      label: 'Time Format',
+      options: [
+        { label: '24 hours', value: '24' },
+        { label: '12 hours', value: '12' },
+      ],
+      selected: '24',
+      defaultOption: '24'
     },
     date: {
-      options: [ true, false ],
       selected: true,
       defaultOption: true
     },
     messageSounds: {
-      options: [ true, false ],
       selected: true,
       defaultOption: true
     },
     ctrlEnterToSend: {
-      options: [ true, false ],
       selected: false,
       defaultOption: false
     }
@@ -37,12 +37,30 @@ const configReducer = (
   action = null
 ) => {
 
+  /*const storedState = localStorage.getItem('react-ws-chat-user_config');
+  const newState = saveStateOnLocalStorage(storedState);*/
+
   switch (action.type) {
 
+    case types.UPDATE_CONFIG_OPTION:
+      const { value, option } = action;
+      state[option].selected = value;
+      return { ...state };
+      // return newState();
+
     default:
-      return {...state}
+      return { ...state };
+      // return newState();
+
   }
 
+};
+
+const saveStateOnLocalStorage = (state) => {
+  return () => {
+    localStorage.setItem('react-ws-chat-user_config', state);
+    return { ...state }
+  }
 };
 
 export default configReducer;
