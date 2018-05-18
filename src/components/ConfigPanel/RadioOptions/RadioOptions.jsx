@@ -26,7 +26,8 @@ const RadioOptions = (props) => {
         name={['selected-', label.replace(/\s/g,'')].join('')}
         onChange={(event, value) => onChange(event, value, configProperty )}
         defaultSelected={selected}
-        className='radio-group'>
+        className='radio-group'
+      >
         { renderRadioOptions() }
       </RadioButtonGroup>
     </div>

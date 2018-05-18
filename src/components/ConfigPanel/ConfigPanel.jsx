@@ -9,6 +9,7 @@ import {withRouter} from 'react-router-dom'
 import * as actions from '../../actions/Actions';
 import PanelWrapper from '../PanelWrapper/PanelWrapper';
 import RadioOptions from './RadioOptions/RadioOptions';
+import ToggleOptions from './ToggleOptions/ToggleOptions';
 import './ConfigPanel.scss';
 
 class ConfigPanel extends Component {
@@ -22,11 +23,11 @@ class ConfigPanel extends Component {
   renderToggleOptionsBlock() {
     return (
       <List>
-        <Divider/>
-        <ListItem
+        <ToggleOptions
           primaryText='Ctrl + Enter'
           secondaryText='To send messages'
-          rightToggle={<Toggle/>}
+          configProperty='ctrlEnterToSend'
+          defaultToggled={true}
         />
         <Divider/>
         <ListItem

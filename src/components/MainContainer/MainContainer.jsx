@@ -4,7 +4,7 @@ import ConversationPanel from '../ConversationPanel/ConversationPanel';
 import ConfigPanel from '../ConfigPanel/ConfigPanel';
 import {Route, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {grey100, grey300, black} from 'material-ui/styles/colors';
+import {grey100, teal100, black} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
@@ -17,11 +17,11 @@ class MainContainer extends Component {
     return getMuiTheme({
       receivedMessageWrapper: {
         color: black,
-        backgroundColor: grey100
+        backgroundColor: teal100
       },
       sentMessageWrapper: {
         color: black,
-        backgroundColor: grey300
+        backgroundColor: grey100
       }
     }, baseTheme);
   }
