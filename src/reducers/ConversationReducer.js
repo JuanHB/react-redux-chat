@@ -10,10 +10,9 @@ const conversationReducer = (
   const { type, message } = action;
 
   switch (type) {
-
     case types.SEND_NEW_MESSAGE:
     case types.ADD_RECEIVED_MESSAGE:
-      const newMessage = messageWithAdditionalInfo(message);
+      const newMessage = messageWithAdditionalInfo(message, type);
       return { ...state, messages: [...state.messages, newMessage()] };
 
     default:
@@ -22,7 +21,7 @@ const conversationReducer = (
 
 };
 
-const messageWithAdditionalInfo = (message) => {
+const messageWithAdditionalInfo = (message, type) => {
   return () => {
     const
       id = Math.floor((Math.random() * 99999) + 1),
@@ -33,7 +32,8 @@ const messageWithAdditionalInfo = (message) => {
         dateTime,
         milliseconds,
         key: milliseconds,
-        type: 'text',
+        // possible values: sent | received
+        type: type === types.SEND_NEW_MESSAGE ? 'sent' : 'received',
       };
     return { ...message, ...addInfo };
   }

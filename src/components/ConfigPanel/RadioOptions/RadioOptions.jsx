@@ -6,7 +6,7 @@ import  './RadioOptions.scss';
 
 const RadioOptions = (props) => {
 
-  const { label, options, selected, stateProperty, onChange } = props;
+  const { label, options, selected, configProperty, onChange } = props;
 
   const renderRadioOptions = () => {
     return options.map((option, i) => (
@@ -14,7 +14,7 @@ const RadioOptions = (props) => {
         key={i}
         label={option.label}
         value={option.value}
-        className="radio"
+        className='radio'
       />
     ));
   };
@@ -24,9 +24,9 @@ const RadioOptions = (props) => {
       <SubHeader> { label } </SubHeader>
       <RadioButtonGroup
         name={['selected-', label.replace(/\s/g,'')].join('')}
-        onChange={(event, value) => onChange(event, value, stateProperty )}
+        onChange={(event, value) => onChange(event, value, configProperty )}
         defaultSelected={selected}
-        className="radio-group">
+        className='radio-group'>
         { renderRadioOptions() }
       </RadioButtonGroup>
     </div>
@@ -38,7 +38,7 @@ RadioOptions.propTypes = {
   options: PropTypes.array.isRequired,
   onChange: PropTypes.func,
   selected: PropTypes.string.isRequired,
-  stateProperty: PropTypes.string
+  configProperty: PropTypes.string
 };
 
 export default RadioOptions;

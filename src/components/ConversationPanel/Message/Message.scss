@@ -1,10 +1,5 @@
 $navHeight: 64px;
-
-$black: #000000;
 $dingy: #495B6A;
-$lightGray: #cdd9e1;
-$white: #ffffff;
-$orange: #FF5722;
 
 .message-wrapper {
   position: relative;
@@ -29,15 +24,6 @@ $orange: #FF5722;
     border-radius: 2px;
     font-weight: 300;
     position: relative;
-    /* word-break: break-all; */
-    //opacity: 0;
-
-    &:before {
-      content: '';
-      width: 0;
-      height: 0;
-      border-style: solid;
-    }
 
     .time {
       color: $dingy;
@@ -61,19 +47,7 @@ $orange: #FF5722;
     padding: (($navHeight - ($navHeight/1.5)) / 2) 0;
 
     .circle-wrapper, .text-wrapper {
-      background: $lightGray;
       float: left;
-      color: $black;
-    }
-
-    .text-wrapper {
-      &:before {
-        border-width: 0 10px 10px 0;
-        border-color: transparent $lightGray transparent transparent;
-        position: absolute;
-        top: 0;
-        left: -9px;
-      }
     }
   }
 
@@ -83,21 +57,7 @@ $orange: #FF5722;
     padding: (($navHeight - ($navHeight/1.5)) / 2) 0;
 
     .circle-wrapper, .text-wrapper {
-      background: $orange;
       float: right;
-      color: $black;
-    }
-
-    .text-wrapper {
-      background: $white;
-
-      &:before {
-        border-width: 10px 10px 0 0;
-        border-color: $white transparent transparent transparent;
-        position: absolute;
-        top: 0;
-        right: -9px;
-      }
     }
   }
 }

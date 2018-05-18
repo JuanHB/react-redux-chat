@@ -7,29 +7,17 @@ import PanelWrapper from '../../PanelWrapper/PanelWrapper';
 
 class Conversation extends Component {
 
+  // starts the Socket connection singleton
   socket = new Socket();
 
-  constructor() {
-    super();
-    this.panelWrapper = React.createRef();
-  }
-
   componentDidMount() {
-
-    const { socket, props } = this;
-    this.panelWrapper.current.scrollToBottom();
-
-    // starts the Socket connection singleton
-    // and calls the messages listener with a callback
-    socket.listenMessagesFromSocket(props.addReceivedMessage);
+    // starts the socket messages listener with a callback
+    // to store the received message
+    this.socket.listenMessagesFromSocket(this.props.addReceivedMessage);
   }
 
   componentWillUnmount() {
     this.socket.removeAllMessageListeners();
-  }
-
-  componentDidUpdate() {
-    this.panelWrapper.current.scrollToBottom();
   }
 
   renderConversationMessages(){
@@ -42,15 +30,16 @@ class Conversation extends Component {
   render(){
     return (
       <PanelWrapper
+        scrollToBottom={true}
         subtractFromHeight={100}
-        ref={this.panelWrapper}>
+      >
         { this.renderConversationMessages() }
       </PanelWrapper>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     config: state.config,
     conversation: state.conversation

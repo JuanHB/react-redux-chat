@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 import './PanelWrapper.scss';
 
 class PanelWrapper extends PureComponent {
@@ -17,7 +18,12 @@ class PanelWrapper extends PureComponent {
   componentDidMount(){
     // update the size on component mount and window resize
     this.updateStyleHeight();
+    this.scrollToBottom();
     window.addEventListener('resize', this.updateStyleHeight);
+  }
+
+  componentDidUpdate(){
+    this.scrollToBottom();
   }
 
   componentWillUnmount() {
@@ -30,15 +36,25 @@ class PanelWrapper extends PureComponent {
   }
 
   scrollToBottom(){
-    this.wrapperElement.current.scrollTop = this.wrapperElement.current.scrollHeight;
+    if(this.props.scrollToBottom){
+      this.wrapperElement.current.scrollTop = this.wrapperElement.current.scrollHeight;
+    }
   }
 
   render() {
+
+    const { paper } = this.props.muiTheme;
+    const style = {
+      height: this.state.height ,
+      color: paper.color,
+      backgroundColor: paper.backgroundColor
+    };
+
     return (
       <div
-        className="wrapper inner"
+        className='wrapper inner'
         ref={this.wrapperElement}
-        style={{ height: this.state.height }}>
+        style={style}>
         {this.props.children}
       </div>
     );
@@ -46,7 +62,8 @@ class PanelWrapper extends PureComponent {
 }
 
 PanelWrapper.propTypes = {
-  subtractFromHeight: PropTypes.number
+  subtractFromHeight: PropTypes.number,
+  scrollToBottom: PropTypes.bool
 };
 
-export default PanelWrapper;
+export default muiThemeable()(PanelWrapper);

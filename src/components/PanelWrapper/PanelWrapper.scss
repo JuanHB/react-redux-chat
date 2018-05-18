@@ -1,4 +1,3 @@
-$white: #ffffff;
 $navHeight: 64px;
 
 .wrapper {
@@ -6,11 +5,8 @@ $navHeight: 64px;
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  background: darken($white, 5%);
   position: fixed;
   top: $navHeight;
-
-  box-shadow: 0 3px 3px 0 rgba(50, 50, 50, 0.5);
 
   .inner {
 
