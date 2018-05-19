@@ -14,17 +14,20 @@ export const addReceivedMessage = (message) => {
   }
 };
 
-export const updateConfigSelectedOption = (value, option) => {
+export const updateConfigSelectedOption = (value, option, configType) => {
   return {
     type: types.UPDATE_CONFIG_SELECTED_OPTION,
-    value, option
+    value,
+    option,
+    configType
   }
 };
 
 export const updateConfigStringOption = (value, option) => {
   return {
     type: types.UPDATE_CONFIG_STRING_OPTION,
-    value, option
+    value,
+    option
   }
 };
 

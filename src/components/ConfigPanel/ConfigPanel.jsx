@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import Toggle from 'material-ui/Toggle';
-import Divider from 'material-ui/Divider';
-import {List, ListItem} from 'material-ui/List';
+import {List} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import TextField from 'material-ui/TextField';
 import {connect} from 'react-redux';
@@ -16,62 +14,70 @@ class ConfigPanel extends Component {
 
   constructor() {
     super();
-    this.handleRadioOptionChange = this.handleRadioOptionChange.bind(this);
-    this.handleUserNameChange = this.handleUserNameChange.bind(this);
+    this.handleStringOptionChange = this.handleStringOptionChange.bind(this);
+    this.handleSelectOptionChange = this.handleSelectOptionChange.bind(this);
   }
 
-  renderToggleOptionsBlock() {
+  renderUserNameTextField(){
+    const {user} = this.props.config;
     return (
-      <List>
-        <ToggleOptions
-          primaryText='Ctrl + Enter'
-          secondaryText='To send messages'
-          configProperty='ctrlEnterToSend'
-          defaultToggled={true}
+      <div>
+        <Subheader>User Name</Subheader>
+        <TextField
+          className='user-text-field'
+          onChange={(e) => this.handleStringOptionChange(e)}
+          defaultValue={user}
+          hintText='Anything you want...'
         />
-        <Divider/>
-        <ListItem
-          primaryText='Dates'
-          secondaryText='Show messages dates'
-          rightToggle={<Toggle/>}
-        />
-        <Divider/>
-        <ListItem
-          primaryText='Sounds'
-          secondaryText='Message sounds'
-          rightToggle={<Toggle/>}
-        />
-      </List>
+      </div>
     );
   }
 
-  handleRadioOptionChange(event, value, option) {
-    this.props.updateConfigSelectedOption(value, option);
+  renderRadioOptions(){
+    const {radio} = this.props.config;
+    return Object.keys(radio).map((key, index) => {
+      return (
+        <RadioOptions
+          {...radio[key]}
+          key={index}
+          configProperty={key}
+          onChange={this.handleSelectOptionChange}
+        />
+      )
+    });
   }
 
-  handleUserNameChange(e) {
+  renderToggleOptions(){
+    const {toggle} = this.props.config;
+    return Object.keys(toggle).map((key,index) => {
+      return (
+        <ToggleOptions
+          {...toggle[key]}
+          key={index}
+          toggled={toggle[key].selected}
+          configProperty={key}
+          onToggle={this.handleSelectOptionChange}
+        />
+      )
+    });
+  }
+
+  handleSelectOptionChange(e, value, option, configType){
+    this.props.updateConfigSelectedOption(value, option, configType);
+  }
+
+  handleStringOptionChange(e) {
     this.props.updateConfigStringOption(e.target.value, 'user');
   }
 
   render() {
-    const
-      {config} = this.props,
-      {theme, timeFormat, user} = config;
-
     return (
       <PanelWrapper>
-        <div>
-          <Subheader>User Name</Subheader>
-          <TextField
-            className='user-text-field'
-            onChange={(e) => this.handleUserNameChange(e)}
-            defaultValue={user}
-            hintText='Anything you want...'
-          />
-        </div>
-        {<RadioOptions {...theme} configProperty='theme' onChange={this.handleRadioOptionChange}/>}
-        {<RadioOptions {...timeFormat} configProperty='timeFormat' onChange={this.handleRadioOptionChange}/>}
-        {this.renderToggleOptionsBlock()}
+        {this.renderUserNameTextField()}
+        {this.renderRadioOptions()}
+        <List>
+          {this.renderToggleOptions()}
+        </List>
       </PanelWrapper>
     );
   }

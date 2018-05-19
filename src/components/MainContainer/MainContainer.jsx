@@ -9,11 +9,17 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import * as actions from '../../actions/Actions';
+import { Socket } from "../../services";
 
 class MainContainer extends Component {
 
+  // starts the Socket connection singleton
+  socket = new Socket();
+
   selectTheme() {
-    const baseTheme = this.props.config.theme.selected === 'light' ? lightBaseTheme : darkBaseTheme
+    const {radio} = this.props.config;
+    const baseTheme = radio.theme.selected === 'light' ? lightBaseTheme : darkBaseTheme;
     return getMuiTheme({
       receivedMessageWrapper: {
         color: black,
@@ -26,8 +32,17 @@ class MainContainer extends Component {
     }, baseTheme);
   }
 
-  render() {
+  componentDidMount() {
+    // starts the socket messages listener with a callback
+    // to store the received message
+    this.socket.listenMessagesFromSocket(this.props.addReceivedMessage);
+  }
 
+  componentWillUnmount() {
+    this.socket.removeAllMessageListeners();
+  }
+
+  render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(this.selectTheme())}>
         <div>
@@ -47,4 +62,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default withRouter(connect(mapStateToProps, null)(MainContainer));
+export default withRouter(connect(mapStateToProps, actions)(MainContainer));

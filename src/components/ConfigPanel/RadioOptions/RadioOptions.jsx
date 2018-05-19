@@ -24,7 +24,7 @@ const RadioOptions = (props) => {
       <SubHeader> { label } </SubHeader>
       <RadioButtonGroup
         name={['selected-', label.replace(/\s/g,'')].join('')}
-        onChange={(event, value) => onChange(event, value, configProperty )}
+        onChange={(event, value) => onChange(event, value, configProperty, 'radio' )}
         defaultSelected={selected}
         className='radio-group'
       >

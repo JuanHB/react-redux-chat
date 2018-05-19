@@ -5,9 +5,7 @@ import Toggle from 'material-ui/Toggle';
 import {ListItem} from 'material-ui/List';
 
 const ToggleOptions = (props) => {
-
-  const { onToggle, primaryText, secondaryText, defaultToggled, configProperty } = props;
-
+  const { onToggle, primaryText, secondaryText, toggled, configProperty } = props;
   return (
     <div>
       <Divider/>
@@ -16,8 +14,8 @@ const ToggleOptions = (props) => {
         secondaryText={secondaryText}
         rightToggle={
           <Toggle
-            onToggle={(e, checked) => onToggle(e, checked, configProperty)}
-            defaultToggled={defaultToggled}
+            onToggle={(e, checked) => onToggle(e, checked, configProperty, 'toggle')}
+            toggled={toggled}
           />}
       />
     </div>
@@ -26,10 +24,10 @@ const ToggleOptions = (props) => {
 
 ToggleOptions.propTypes = {
   onToggle: PropTypes.func,
-  secondaryText: PropTypes.string,
-  defaultToggled: PropTypes.bool,
   primaryText: PropTypes.string.isRequired,
-  configProperty: PropTypes.string.isRequired
+  secondaryText: PropTypes.string,
+  configProperty: PropTypes.string.isRequired,
+  toggled: PropTypes.bool
 };
 
 export default ToggleOptions;

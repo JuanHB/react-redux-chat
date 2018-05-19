@@ -5,29 +5,24 @@ import './Message.scss';
 
 class Message extends PureComponent {
 
-  /**
-   *
-   * @param dateTime {Date}
-   * @param timeFormat {String}
-   * @returns {string}
-   */
-  getMessageTime(dateTime, timeFormat = '24') {
+  getMessageTime() {
 
+    const {dateTime, timeFormat, showDate} = this.props;
     const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const timeString = timeFormat === '12'
       ? dateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
       : [dateTime.getHours(), ':', dateTime.getMinutes()].join('');
 
-    const dateTimeToReturn = [
-      timeString, ' - ',
-      dateTime.getDate(), '/', (dateTime.getMonth() + 1), ' - ',
+    const dateString = showDate ? [
+      ' - ', dateTime.getDate(), '/', (dateTime.getMonth() + 1), ' - ',
       weekDays[dateTime.getDay()]
-    ];
-    return dateTimeToReturn.join('');
+    ].join('') : '';
+
+    return [ timeString, dateString ].join('');
   };
 
   render() {
-    const { message, dateTime, user, timeFormat, type, muiTheme } = this.props;
+    const { message, user, type, muiTheme } = this.props;
     const { raisedButton, sentMessageWrapper, receivedMessageWrapper } = muiTheme;
     const fromMe = type === 'sent';
     const messageClass = ['message-wrapper ', (fromMe ? 'me' : 'them')].join('');
@@ -38,16 +33,13 @@ class Message extends PureComponent {
       },
       messageWrapper: fromMe ? sentMessageWrapper : receivedMessageWrapper
     };
-
-    console.log(this.props.muiTheme)
-
     return (
       <div className={ messageClass }>
         <div className='circle-wrapper' style={themeColors.circle}> </div>
         <div className='text-wrapper' style={themeColors.messageWrapper}>
           <div className='userName'>{ user }</div>
           <div>{ message }</div>
-          <div className='time'>{ this.getMessageTime(dateTime, timeFormat) }</div>
+          <div className='time'>{ this.getMessageTime() }</div>
         </div>
       </div>
     );
@@ -59,6 +51,7 @@ Message.propTypes = {
   user: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   dateTime: PropTypes.object.isRequired,
+  showDate: PropTypes.bool.isRequired,
   timeFormat: PropTypes.string
 };
 
