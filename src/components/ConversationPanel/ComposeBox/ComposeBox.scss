@@ -10,5 +10,5 @@
 .textField {
   margin-left: 14px;
   margin-right: 14px;
-  width: 93%
+  width: calc(100% - 28px) !important
 }

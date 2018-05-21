@@ -31,8 +31,8 @@ export const updateConfigStringOption = (value, option) => {
   }
 };
 
-export const resetAllConfigOptions = () => {
+export const resetConfigToDefaults = () => {
   return {
-    type: types.RESET_ALL_CONFIG_OPTIONS
+    type: types.RESET_CONFIG_TO_DEFAULTS
   }
 };

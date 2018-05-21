@@ -7,15 +7,15 @@ import * as types from '../actions/Types';
  * @returns {*}
  */
 
-const configReducer = (
-  state = {
+let initialState = () => {
+  return {
     user: 'guest-001',
     radio: {
       theme: {
         label: 'Color Theme',
         options: [
-          {label: 'Light', value: 'light'},
-          {label: 'Dark', value: 'dark'},
+          { label: 'Light', value: 'light' },
+          { label: 'Dark', value: 'dark' },
         ],
         selected: 'light',
         defaultOption: 'light'
@@ -23,8 +23,8 @@ const configReducer = (
       timeFormat: {
         label: 'Time Format',
         options: [
-          {label: '24 hours', value: '24'},
-          {label: '12 hours', value: '12'},
+          { label: '24 hours', value: '24' },
+          { label: '12 hours', value: '12' },
         ],
         selected: '24',
         defaultOption: '24'
@@ -33,13 +33,7 @@ const configReducer = (
     toggle: {
       date: {
         primaryText: 'Dates',
-        secondaryText: 'Show messages dates',
-        selected: true,
-        defaultOption: true
-      },
-      sounds: {
-        primaryText: 'Sounds',
-        secondaryText: 'Message sounds',
+        secondaryText: 'Show message dates',
         selected: true,
         defaultOption: true
       },
@@ -49,26 +43,46 @@ const configReducer = (
         selected: false,
         defaultOption: false
       }
+      /*sounds: {
+        primaryText: 'Sounds',
+        secondaryText: 'Message sounds',
+        selected: true,
+        defaultOption: true
+      },*/
     },
-  },
+  }
+};
+
+const configReducer = (
+  state = initialState(),
   action = null
 ) => {
 
-  const {value, option, configType} = action;
-
+  const { value, option, configType } = action;
+  let newState;
   switch (action.type) {
 
     case types.UPDATE_CONFIG_SELECTED_OPTION:
-      state[configType][option].selected = value;
-      return saveConfigOnLocalStorage(state);
+      newState = { ...state };
+      newState[configType][option].selected = value;
+      saveConfigOnLocalStorage(newState);
+      return newState;
 
     case types.UPDATE_CONFIG_STRING_OPTION:
-      state[option] = value;
-      return saveConfigOnLocalStorage(state);
+      newState = { ...state };
+      newState[option] = value;
+      saveConfigOnLocalStorage(newState);
+      return newState;
+
+    case types.RESET_CONFIG_TO_DEFAULTS:
+      newState = {...initialState(), user: state.user};
+      removeConfigFromLocalStorage();
+      saveConfigOnLocalStorage(newState);
+      return newState;
 
     default:
       const storedConfig = getConfigFromLocalStorage();
-      return storedConfig ? {...state, ...storedConfig} : {...state};
+      return storedConfig ? { ...storedConfig } : { ...state };
 
   }
 };
@@ -79,13 +93,16 @@ const localStorageItemName = 'react-ws-chat-user_config';
 // saves the config on JSON
 const saveConfigOnLocalStorage = (state) => {
   localStorage.setItem(localStorageItemName, JSON.stringify(state));
-  return {...state};
 };
 
 // gets the config, if none was found, returns null
 const getConfigFromLocalStorage = () => {
   const storedConfig = localStorage.getItem(localStorageItemName);
   return storedConfig ? JSON.parse(storedConfig) : null;
+};
+
+const removeConfigFromLocalStorage = () => {
+  localStorage.removeItem(localStorageItemName);
 };
 
 export default configReducer;

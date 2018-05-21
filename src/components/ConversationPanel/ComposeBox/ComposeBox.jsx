@@ -40,13 +40,22 @@ class ComposeBox extends Component {
   }
 
   handleKeyPress(event){
-    if(event.charCode === 13){
-      event.preventDefault();
-      this.submitMessage();
+    const ctrlEnterToSend = this.props.config.toggle.ctrlEnterToSend.selected;
+    if(ctrlEnterToSend){
+      if(event.ctrlKey && event.charCode === 13){
+        event.preventDefault();
+        this.submitMessage();
+      }
+    } else {
+      if(event.charCode === 13){
+        event.preventDefault();
+        this.submitMessage();
+      }
     }
   }
 
   render() {
+    const ctrlEnterToSend = this.props.config.toggle.ctrlEnterToSend.selected;
     return (
       <Paper className='paper' >
         <form onKeyPress={(e) => this.handleKeyPress(e)} >
@@ -55,7 +64,7 @@ class ComposeBox extends Component {
             rowsMax={4}
             value={this.state.message}
             className='textField'
-            hintText='Type your message'
+            hintText={ 'Type your message' + ((ctrlEnterToSend) ? ' (Ctrl + Enter to send)' : '')}
             onChange={(e) => this.handleMessageChange(e)}
             multiLine={true}
             autoFocus={true}

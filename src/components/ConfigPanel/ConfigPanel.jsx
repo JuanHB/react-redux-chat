@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {List} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom'
 import * as actions from '../../actions/Actions';
@@ -16,6 +17,7 @@ class ConfigPanel extends Component {
     super();
     this.handleStringOptionChange = this.handleStringOptionChange.bind(this);
     this.handleSelectOptionChange = this.handleSelectOptionChange.bind(this);
+    this.handleResetToDefaultsClick = this.handleResetToDefaultsClick.bind(this);
   }
 
   renderUserNameTextField(){
@@ -70,6 +72,10 @@ class ConfigPanel extends Component {
     this.props.updateConfigStringOption(e.target.value, 'user');
   }
 
+  handleResetToDefaultsClick(){
+    this.props.resetConfigToDefaults();
+  }
+
   render() {
     return (
       <PanelWrapper>
@@ -78,6 +84,12 @@ class ConfigPanel extends Component {
         <List>
           {this.renderToggleOptions()}
         </List>
+        <RaisedButton
+          className='reset-defaults-button'
+          label='Reset to Defaults'
+          secondary={true}
+          onClick={() => this.handleResetToDefaultsClick()}
+        />
       </PanelWrapper>
     );
   }
