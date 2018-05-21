@@ -43,12 +43,6 @@ let initialState = () => {
         selected: false,
         defaultOption: false
       }
-      /*sounds: {
-        primaryText: 'Sounds',
-        secondaryText: 'Message sounds',
-        selected: true,
-        defaultOption: true
-      },*/
     },
   }
 };
