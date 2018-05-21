@@ -104,6 +104,9 @@ module.exports = {
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
     ],
   },
+  externals: {
+    'socket.io-client':'io'
+  },
   module: {
     strictExportPresence: true,
     rules: [
@@ -152,6 +155,11 @@ module.exports = {
               
               compact: true,
             },
+          },
+          {
+            test: /\.scss$/,
+            include: paths.appSrc,
+            loaders: ["style-loader", "css-loader", "sass-loader"]
           },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.

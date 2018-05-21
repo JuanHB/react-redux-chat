@@ -88,7 +88,6 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
-      'socket.io-client': path.join( 'node_modules', 'socket.io-client', 'socket.io.js' )
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -103,7 +102,6 @@ module.exports = {
     'socket.io-client':'io'
   },
   module: {
-    noParse: [ /socket.io-client/ ],
     strictExportPresence: true,
     rules: [
       // TODO: Disable require.ensure as it's not a standard language feature.
