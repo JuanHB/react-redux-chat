@@ -1,32 +1,22 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import muiThemeable from 'material-ui/styles/muiThemeable';
+import getMessageTime from '../../../utils/dateTime';
 import './Message.scss';
 
 class Message extends PureComponent {
 
-  getMessageTime() {
-
-    const
-      {dateTime, timeFormat, showDate} = this.props,
-      weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-    // converts the time accordingly with the selected configuration
-    const timeString = timeFormat === '12'
-      ? dateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-      : [dateTime.getHours(), ':', dateTime.getMinutes()].join('');
-
-    // shows the date string for the message, if enabled
-    const dateString = showDate ? [
-      ' - ', dateTime.getDate(), '/', (dateTime.getMonth() + 1), ' - ', weekDays[dateTime.getDay()]
-    ].join('') : '';
-
-    return [ timeString, dateString ].join('');
-  };
+  renderMessageContent(message){
+    const regexUrl = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+    if(regexUrl.test(message)){
+      return (<a href={message} target='_blank'>{message}</a>)
+    }
+    return (message);
+  }
 
   render() {
     const
-      { message, user, type, muiTheme } = this.props,
+      { message, user, type, muiTheme, dateTime, timeFormat, showDate } = this.props,
       { raisedButton, sentMessageWrapper, receivedMessageWrapper } = muiTheme,
       fromMe = type === 'sent',
       messageClass = ['message-wrapper ', (fromMe ? 'me' : 'them')].join('');
@@ -44,8 +34,8 @@ class Message extends PureComponent {
         <div className='circle-wrapper' style={themeColors.circle}> </div>
         <div className='text-wrapper' style={themeColors.messageWrapper}>
           <div className='userName'>{ user }</div>
-          <div>{ message }</div>
-          <div className='time'>{ this.getMessageTime() }</div>
+          <div>{ this.renderMessageContent(message) }</div>
+          <div className='time'>{ getMessageTime(dateTime, timeFormat, showDate) }</div>
         </div>
       </div>
     );
