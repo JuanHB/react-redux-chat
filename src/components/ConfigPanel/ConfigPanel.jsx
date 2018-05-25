@@ -13,13 +13,6 @@ import './ConfigPanel.scss';
 
 class ConfigPanel extends Component {
 
-  constructor() {
-    super();
-    this.handleStringOptionChange = this.handleStringOptionChange.bind(this);
-    this.handleSelectOptionChange = this.handleSelectOptionChange.bind(this);
-    this.handleResetToDefaultsClick = this.handleResetToDefaultsClick.bind(this);
-  }
-
   renderUserNameTextField(){
     const {user} = this.props.config;
     return (
@@ -27,7 +20,7 @@ class ConfigPanel extends Component {
         <Subheader>User Name</Subheader>
         <TextField
           className='user-text-field'
-          onChange={(e) => this.handleStringOptionChange(e)}
+          onChange={this.handleStringOptionChange}
           defaultValue={user}
           hintText='Anything you want...'
         />
@@ -64,17 +57,17 @@ class ConfigPanel extends Component {
     });
   }
 
-  handleSelectOptionChange(e, value, option, configType){
+  handleSelectOptionChange = (e, value, option, configType) => {
     this.props.updateConfigSelectedOption(value, option, configType);
-  }
+  };
 
-  handleStringOptionChange(e) {
-    this.props.updateConfigStringOption(e.target.value, 'user');
-  }
+  handleStringOptionChange = event  => {
+    this.props.updateConfigStringOption(event.target.value, 'user');
+  };
 
-  handleResetToDefaultsClick(){
+  handleResetToDefaultsClick = () => {
     this.props.resetConfigToDefaults();
-  }
+  };
 
   render() {
     return (
@@ -88,7 +81,7 @@ class ConfigPanel extends Component {
           className='reset-defaults-button'
           label='Reset to Defaults'
           secondary={true}
-          onClick={() => this.handleResetToDefaultsClick()}
+          onClick={this.handleResetToDefaultsClick}
         />
       </PanelWrapper>
     );

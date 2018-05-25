@@ -5,15 +5,8 @@ import './PanelWrapper.scss';
 
 class PanelWrapper extends PureComponent {
 
-  constructor(props){
-    super(props);
-
-    this.state = { height: 0 };
-    this.wrapperElement = React.createRef();
-
-    this.scrollToBottom = this.scrollToBottom.bind(this);
-    this.updateStyleHeight = this.updateStyleHeight.bind(this)
-  }
+  state = { height: 0 };
+  wrapperElement = React.createRef();
 
   componentDidMount(){
     // update the size on component mount and window resize
@@ -22,7 +15,7 @@ class PanelWrapper extends PureComponent {
     window.addEventListener('resize', this.updateStyleHeight);
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     this.scrollToBottom();
   }
 
@@ -30,16 +23,16 @@ class PanelWrapper extends PureComponent {
     window.removeEventListener('resize', this.updateStyleHeight);
   }
 
-  updateStyleHeight(){
+  updateStyleHeight = () => {
     const { subtractFromHeight } = this.props;
     this.setState({ height: window.innerHeight - (subtractFromHeight || 0)});
-  }
+  };
 
-  scrollToBottom(){
+  scrollToBottom = () => {
     if(this.props.scrollToBottom){
       this.wrapperElement.current.scrollTop = this.wrapperElement.current.scrollHeight;
     }
-  }
+  };
 
   render() {
 

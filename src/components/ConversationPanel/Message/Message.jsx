@@ -6,13 +6,13 @@ import './Message.scss';
 
 class Message extends PureComponent {
 
-  renderMessageContent(message){
+  renderMessageContent = (message) => {
     const regexUrl = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
     if(regexUrl.test(message)){
       return (<a href={message} target='_blank'>{message}</a>)
     }
     return (message);
-  }
+  };
 
   render() {
     const

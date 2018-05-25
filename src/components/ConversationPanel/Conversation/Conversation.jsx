@@ -6,7 +6,7 @@ import PanelWrapper from '../../PanelWrapper/PanelWrapper';
 
 class Conversation extends Component {
 
-  renderConversationMessages(){
+  renderConversationMessages = () => {
     const { conversation, config } = this.props;
     return conversation.messages.map( msgObj => (
       <Message
@@ -16,7 +16,7 @@ class Conversation extends Component {
         timeFormat={config.radio.timeFormat.selected}
       />
     ));
-  }
+  };
 
   render(){
     return (

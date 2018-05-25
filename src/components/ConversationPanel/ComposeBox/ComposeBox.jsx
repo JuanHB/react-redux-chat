@@ -8,24 +8,16 @@ import './ComposeBox.scss';
 
 class ComposeBox extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = { message: '' };
-    this.submitMessage = this.submitMessage.bind(this);
-  }
+  state = { message: '' };
 
-  handleMessageChange = (e) => {
-    this.setState({
-      message: e.target.value
-    });
+  handleMessageChange = event => {
+    this.setState({ message: event.target.value });
   };
 
-  submitMessage() {
-
+  submitMessage = () => {
     const
       { user } = this.props.config,
       { message } = this.state;
-
     if(message){
       const messageToSend = {user , message};
       // access the socket singleton instance only when needed
@@ -37,9 +29,9 @@ class ComposeBox extends Component {
         this.setState({ message: '' });
       })
     }
-  }
+  };
 
-  handleKeyPress(event){
+  handleKeyPress = event => {
     const ctrlEnterToSend = this.props.config.toggle.ctrlEnterToSend.selected;
     if(ctrlEnterToSend){
       if(event.ctrlKey && event.charCode === 13){
@@ -57,15 +49,15 @@ class ComposeBox extends Component {
   render() {
     const ctrlEnterToSend = this.props.config.toggle.ctrlEnterToSend.selected;
     return (
-      <Paper className='paper' >
-        <form onKeyPress={(e) => this.handleKeyPress(e)} >
+      <Paper className='paper'>
+        <form onKeyPress={this.handleKeyPress} >
           <TextField
             rows={1}
             rowsMax={4}
             value={this.state.message}
             className='textField'
             hintText={ 'Type your message' + ((ctrlEnterToSend) ? ' (Ctrl + Enter to send)' : '')}
-            onChange={(e) => this.handleMessageChange(e)}
+            onChange={this.handleMessageChange}
             multiLine={true}
             autoFocus={true}
             autoComplete='off'
