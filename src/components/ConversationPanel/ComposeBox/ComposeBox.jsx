@@ -22,7 +22,7 @@ class ComposeBox extends Component {
       const messageToSend = {user , message};
       // access the socket singleton instance only when needed
       const socket = new Socket();
-      socket.sendMessageToSocket(messageToSend, (messageSent) => {
+      socket.sendMessage(messageToSend, (messageSent) => {
         // stores the message on redux state
         this.props.sendMessage(messageSent);
         // cleans the user message on the local state after it was sent
@@ -44,7 +44,7 @@ class ComposeBox extends Component {
         this.submitMessage();
       }
     }
-  }
+  };
 
   render() {
     const ctrlEnterToSend = this.props.config.toggle.ctrlEnterToSend.selected;

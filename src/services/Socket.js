@@ -22,7 +22,7 @@ class Socket {
     this.ignore = ["echoBot2000"];
   }
 
-  listenMessagesFromSocket(callback) {
+  listenMessages(callback) {
     const { io, ignore } = this;
     io.on("message", message => {
       // only calls the callback fn when the user is not on the ignored list
@@ -34,7 +34,7 @@ class Socket {
     this.io.removeAllListeners("message");
   }
 
-  sendMessageToSocket(messageObj, callback) {
+  sendMessage(messageObj, callback) {
     this.io.emit("message", messageObj);
     return callback(messageObj);
   }

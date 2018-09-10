@@ -8,44 +8,34 @@ import './Header.scss';
 
 class Header extends Component {
 
-  renderTitle() {
-    const { location } = this.props;
-    switch (location.pathname) {
-      case "/config":
-        return "Config";
-      default:
-        return "React WS Chat v0.1";
-    }
-  }
+  renderTitle = () => this.isHome()
+    ? "React Redux Chat"
+    : "Config";
 
-  renderMenuIcon() {
-    const { location } = this.props;
-    return location.pathname === '/' ? (
+  renderMenuIcon = () => {
+    return this.isHome() ? (
       <Link to="/config">
         <IconButton> <Settings/> </IconButton>
       </Link>
     ) : null;
-  }
+  };
 
-  renderArrowBackIcon() {
-    return (
-      <Link to="/">
-        <IconButton> <ArrowBack/> </IconButton>
-      </Link>
-    );
-  }
+  renderArrowBackIcon = () => (
+    <Link to="/">
+      <IconButton> <ArrowBack/> </IconButton>
+    </Link>
+  );
+
+  isHome = () => this.props.location.pathname === "/";
 
   render() {
-
-    const { location } = this.props;
-
     return (
       <AppBar
         className="header"
         title={ this.renderTitle() }
         iconElementLeft={ this.renderArrowBackIcon() }
         iconElementRight={ this.renderMenuIcon() }
-        showMenuIconButton={location.pathname !== '/'}
+        showMenuIconButton={ !this.isHome() }
       />
     );
   }
