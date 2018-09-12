@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import { Socket } from '../../../services/index';
-import * as actions from '../../../actions/Actions';
+import ChatService from 'services/ChatService';
+import * as actions from 'actions/Actions';
 import './ComposeBox.scss';
 
 class ComposeBox extends Component {
 
-  state = { message: '' };
+  state = {
+    message: ''
+  };
 
   handleMessageChange = event => {
     this.setState({ message: event.target.value });
@@ -21,10 +23,9 @@ class ComposeBox extends Component {
     if(message){
       const messageToSend = {user , message};
       // access the socket singleton instance only when needed
-      const socket = new Socket();
-      socket.sendMessage(messageToSend, (messageSent) => {
+      ChatService.sendMessage(messageToSend, (messageSent) => {
         // stores the message on redux state
-        this.props.sendMessage(messageSent);
+        this.props.storeSentMessage(messageSent);
         // cleans the user message on the local state after it was sent
         this.setState({ message: '' });
       })

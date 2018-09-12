@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import ComposeBox from './ComposeBox/ComposeBox';
 import Conversation from './Conversation/Conversation';
 

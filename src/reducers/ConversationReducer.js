@@ -1,4 +1,4 @@
-import * as types from '../actions/Types';
+import * as types from 'actions/Types';
 
 const conversationReducer = (
   state = {
@@ -10,7 +10,7 @@ const conversationReducer = (
   const { type, message } = action;
 
   switch (type) {
-    case types.SEND_NEW_MESSAGE:
+    case types.STORE_SENT_MESSAGE:
     case types.ADD_RECEIVED_MESSAGE:
       const newMessage = messageWithAdditionalInfo(message, type);
       return { ...state, messages: [...state.messages, newMessage()] };
@@ -33,7 +33,7 @@ const messageWithAdditionalInfo = (message, type) => {
         milliseconds,
         key: milliseconds,
         // possible values: sent | received
-        type: type === types.SEND_NEW_MESSAGE ? 'sent' : 'received',
+        type: type === types.STORE_SENT_MESSAGE ? 'sent' : 'received',
       };
     return { ...message, ...addInfo };
   }

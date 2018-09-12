@@ -1,4 +1,4 @@
-import * as types from '../actions/Types';
+import * as types from 'actions/Types';
 
 /**
  * This Reducer uses the Local Storage to save and load the configs

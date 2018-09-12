@@ -5,8 +5,8 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom'
-import * as actions from '../../actions/Actions';
-import PanelWrapper from '../PanelWrapper/PanelWrapper';
+import * as actions from 'actions/Actions';
+import PanelWrapper from 'components/PanelWrapper/PanelWrapper';
 import RadioOptions from './RadioOptions/RadioOptions';
 import ToggleOptions from './ToggleOptions/ToggleOptions';
 import './ConfigPanel.scss';

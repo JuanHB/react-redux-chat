@@ -1,5 +1,5 @@
 import Socket from './Socket';
-import ChatService from './ChatService';
 import ChatBot from './ChatBot';
+import ChatService from './ChatService';
 
 export { Socket, ChatService, ChatBot };

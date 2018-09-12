@@ -1,8 +1,8 @@
 import * as types from './Types';
 
-export const sendMessage = (message) => {
+export const storeSentMessage = (message) => {
   return {
-    type: types.SEND_NEW_MESSAGE,
+    type: types.STORE_SENT_MESSAGE,
     message
   };
 };

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import getMessageTime from '../../../utils/dateTime';
+import getMessageTime from 'utils/dateTime';
 import './Message.scss';
 
 class Message extends PureComponent {

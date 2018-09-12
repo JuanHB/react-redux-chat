@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Message from '../Message/Message';
-import * as actions from '../../../actions/Actions';
-import PanelWrapper from '../../PanelWrapper/PanelWrapper';
+import Message from 'components/ConversationPanel/Message/Message';
+import * as actions from 'actions/Actions';
+import PanelWrapper from 'components/PanelWrapper/PanelWrapper';
 
 class Conversation extends Component {
 

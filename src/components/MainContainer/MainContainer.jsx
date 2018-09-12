@@ -6,17 +6,13 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import darkBaseTheme from "material-ui/styles/baseThemes/darkBaseTheme";
 import lightBaseTheme from "material-ui/styles/baseThemes/lightBaseTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import Header from "../Header/Header";
-import { ChatService, Socket } from "../../services";
-import ConfigPanel from "../ConfigPanel/ConfigPanel";
-import * as actions from "../../actions/Actions";
-import ConversationPanel from "../ConversationPanel/ConversationPanel";
+import Header from "components/Header/Header";
+import ChatService from "services/ChatService";
+import ConfigPanel from "components/ConfigPanel/ConfigPanel";
+import * as actions from "actions/Actions";
+import ConversationPanel from "components/ConversationPanel/ConversationPanel";
 
 class MainContainer extends Component {
-
-  // starts the Socket connection singleton
-  socket = new Socket();
-  chatService = new ChatService();
 
   selectTheme() {
     const selectedTheme = this.props.config.radio.theme.selected;
@@ -34,16 +30,11 @@ class MainContainer extends Component {
   }
 
   componentDidMount() {
-    debugger;
-    // starts the socket messages listener with a callback
-    // to store the received message
-    // this.socket.listenMessages(this.props.addReceivedMessage);
-    this.chatService.listenMessages(this.props.addReceivedMessage);
+    ChatService.listenMessages(this.props.addReceivedMessage);
   }
 
   componentWillUnmount() {
-    // this.socket.removeAllMessageListeners();
-    this.chatService.removeAllMessageListeners();
+    ChatService.removeAllMessageListeners();
   }
 
   render() {
