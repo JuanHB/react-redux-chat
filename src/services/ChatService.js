@@ -19,8 +19,7 @@ class ChatService {
     if(this.instance) {
       return this.instance;
     }
-
-    if(useInternalBot || !hasSocketUrl ) {
+    if(useInternalBot==='true' || !hasSocketUrl ) {
       botInstance = new ChatBot();
     } else {
       botInstance = new Socket();
