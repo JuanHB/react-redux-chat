@@ -38,9 +38,9 @@ class PanelWrapper extends PureComponent {
 
     const { paper } = this.props.muiTheme;
     const style = {
-      height: this.state.height ,
+      height: this.state.height,
       color: paper.color,
-      backgroundColor: paper.backgroundColor
+      backgroundColor: paper.backgroundColor,
     };
 
     return (

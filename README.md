@@ -1,9 +1,26 @@
-#### React Web Socket Chat App
-This is a simple implementation of a online chat system using React, Redux and React Router. Consuming an Socket.io WebSocket endpoint.
+#### React Redux Web Chat
+This is a simple implementation of a online chat system using React, Redux and React Router. 
+There is an internal bot made with setInterval(), the bot will kick in the second the project is loaded.
+WebSockets are supported, in order to enable it, disable the bot and provide an WS server url.
 
-The boilerplate was made with Create React App, but since some customized settings were needed, the app was ejected.
+Boilerplate made with Create React App, and ejected for custom settings.
+UI was built with Material-UI v0.20.0 with custom SCSS styling.
 
-The UI was built with Material-UI v0.20.0 and some custom SCSS styling.
+##
+##### .env variables
+
+|**param**|**default**|**values**|**description**|
+|:-------:|:---------:|:--------:|:-------------|
+|`REACT_APP_USE_INTERNAL_BOT`|`true`|`true` `false`|*Enables the internal bot*|
+|`REACT_APP_SOCKET_IO_URL`|`empty`|`string`|*WebSocket server url*|
+
+##### expected WS object structure
+`
+{ 
+    user : "User Name",
+    message : "The message" 
+}
+`
 
 To run the project:
 

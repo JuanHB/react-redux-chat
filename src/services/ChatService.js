@@ -11,13 +11,16 @@ class ChatService {
 
   constructor () {
 
+    let botInstance = null;
+    const useInternalBot = process.env.REACT_APP_USE_INTERNAL_BOT;
+    const hasSocketUrl = !!process.env.REACT_APP_SOCKET_IO_URL;
+
     // behold, the "singleton" trick...
     if(this.instance) {
       return this.instance;
     }
 
-    let botInstance = null;
-    if(process.env.REACT_APP_USE_INTERNAL_BOT) {
+    if(useInternalBot || !hasSocketUrl ) {
       botInstance = new ChatBot();
     } else {
       botInstance = new Socket();

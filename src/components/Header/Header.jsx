@@ -14,7 +14,7 @@ class Header extends Component {
 
   renderMenuIcon = () => {
     return this.isHome() ? (
-      <Link to="/config">
+      <Link to="/config" className='menu-icon'>
         <IconButton> <Settings/> </IconButton>
       </Link>
     ) : null;
@@ -34,9 +34,13 @@ class Header extends Component {
         className="header"
         title={ this.renderTitle() }
         iconElementLeft={ this.renderArrowBackIcon() }
-        iconElementRight={ this.renderMenuIcon() }
         showMenuIconButton={ !this.isHome() }
-      />
+      >
+        <div className='github-link'>
+          <a href="https://github.com/juanhb/react-redux-chat" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+        { this.renderMenuIcon() }
+      </AppBar>
     );
   }
 
