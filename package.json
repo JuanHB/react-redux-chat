@@ -2,7 +2,7 @@
   "name": "react-ws-chat-spa",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http:juanhb.github.io/react-redux-chat",
+  "homepage": "https//:juanhb.github.io/react-redux-chat",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
