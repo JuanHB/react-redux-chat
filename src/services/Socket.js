@@ -1,5 +1,5 @@
 // this lib is available by "externals" from WebPack
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 /**
  * This class do the connection with the Socket,
@@ -18,24 +18,27 @@ class Socket {
 
     this.instance = this;
     this.url = process.env.REACT_APP_SOCKET_IO_URL;
-    this.io = io.connect(this.url);
+    // this.io = io.connect(this.url);
     this.ignore = ["echoBot2000"];
   }
 
   listenMessages(callback) {
-    const { io, ignore } = this;
+    /*const { io, ignore } = this;
     io.on("message", message => {
       // only calls the callback fn when the user is not on the ignored list
       return ignore.indexOf(message.user) === -1 ? callback(message) : null
-    });
+    });*/
+    callback();
   };
 
   removeAllMessageListeners(){
-    this.io.removeAllListeners("message");
+    //this.io.removeAllListeners("message");
+    return true;
   }
 
   sendMessage(messageObj, callback) {
-    this.io.emit("message", messageObj);
+    /*this.io.emit("message", messageObj);
+    return callback(messageObj);*/
     return callback(messageObj);
   }
 
