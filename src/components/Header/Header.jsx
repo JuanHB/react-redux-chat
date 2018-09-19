@@ -4,6 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import Settings from 'material-ui/svg-icons/action/settings';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
+import makeRoute from 'utils/route';
 import './Header.scss';
 
 class Header extends Component {
@@ -14,19 +15,19 @@ class Header extends Component {
 
   renderMenuIcon = () => {
     return this.isHome() ? (
-      <Link to="/config" className='menu-icon'>
+      <Link to={makeRoute('/config')} className='menu-icon'>
         <IconButton> <Settings/> </IconButton>
       </Link>
     ) : null;
   };
 
   renderArrowBackIcon = () => (
-    <Link to="/">
+    <Link to={makeRoute('/')}>
       <IconButton> <ArrowBack/> </IconButton>
     </Link>
   );
 
-  isHome = () => this.props.location.pathname === "/";
+  isHome = () => this.props.location.pathname === makeRoute('/');
 
   render() {
     return (

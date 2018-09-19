@@ -11,6 +11,7 @@ import ChatService from "services/ChatService";
 import ConfigPanel from "components/ConfigPanel/ConfigPanel";
 import * as actions from "actions/Actions";
 import ConversationPanel from "components/ConversationPanel/ConversationPanel";
+import makeRoute from 'utils/route';
 
 class MainContainer extends Component {
 
@@ -42,8 +43,8 @@ class MainContainer extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme(this.selectTheme())}>
         <div>
           <Header/>
-          <Route exact path="/" component={ConversationPanel}/>
-          <Route path="/config" component={ConfigPanel}/>
+          <Route path={makeRoute('/')} component={ConversationPanel}/>
+          <Route path={makeRoute('/config')} component={ConfigPanel}/>
         </div>
       </MuiThemeProvider>
     );
