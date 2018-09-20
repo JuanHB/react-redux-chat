@@ -35,8 +35,6 @@ To run the project:
 `$ npm run build`
 
 #### Tech stack
-* React
-* Redux
-* JSX
-* CSS3
+* React, Redux, JSX
+* Material UI - https://material-ui.com
 * Webpack
